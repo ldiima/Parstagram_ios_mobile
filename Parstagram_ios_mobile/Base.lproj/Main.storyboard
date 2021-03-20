@@ -95,7 +95,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="444" id="LiF-Y1-kX1">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="444" id="LiF-Y1-kX1" customClass="PostCell" customModule="Parstagram_ios_mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="444"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LiF-Y1-kX1" id="0Sy-r4-zqZ">
@@ -109,7 +109,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Dima" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOV-SV-2Mt">
-                                                    <rect key="frame" x="8" y="415" width="39" height="21"/>
+                                                    <rect key="frame" x="8" y="415" width="39" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -125,14 +125,21 @@
                                                 <constraint firstAttribute="trailing" secondItem="4Fn-QF-23M" secondAttribute="trailing" constant="8" id="6we-yW-pgI"/>
                                                 <constraint firstAttribute="trailing" secondItem="OHE-LS-h9l" secondAttribute="trailing" constant="8" id="HIh-z8-gCE"/>
                                                 <constraint firstItem="OHE-LS-h9l" firstAttribute="leading" secondItem="cOV-SV-2Mt" secondAttribute="trailing" constant="8" id="Kk5-WA-nFX"/>
+                                                <constraint firstItem="OHE-LS-h9l" firstAttribute="baseline" secondItem="cOV-SV-2Mt" secondAttribute="firstBaseline" id="MXH-AG-YT5"/>
                                                 <constraint firstItem="cOV-SV-2Mt" firstAttribute="leading" secondItem="0Sy-r4-zqZ" secondAttribute="leading" constant="8" id="NeS-6K-AaK"/>
                                                 <constraint firstItem="cOV-SV-2Mt" firstAttribute="top" secondItem="4Fn-QF-23M" secondAttribute="bottom" constant="8" id="Xve-1w-Uug"/>
                                                 <constraint firstItem="OHE-LS-h9l" firstAttribute="top" secondItem="4Fn-QF-23M" secondAttribute="bottom" constant="8" id="a8Q-lO-POU"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OHE-LS-h9l" secondAttribute="bottom" constant="8" id="g26-ED-cSW"/>
                                                 <constraint firstItem="4Fn-QF-23M" firstAttribute="top" secondItem="0Sy-r4-zqZ" secondAttribute="top" constant="8" id="gte-ZT-Bg6"/>
                                                 <constraint firstItem="4Fn-QF-23M" firstAttribute="leading" secondItem="0Sy-r4-zqZ" secondAttribute="leading" constant="8" id="jI4-u7-ei9"/>
+                                                <constraint firstItem="cOV-SV-2Mt" firstAttribute="centerY" secondItem="OHE-LS-h9l" secondAttribute="centerY" id="lOb-oS-nZC"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="captionLabel" destination="OHE-LS-h9l" id="e9v-Jv-WgU"/>
+                                            <outlet property="photoView" destination="4Fn-QF-23M" id="paw-hU-YrE"/>
+                                            <outlet property="usernameLabel" destination="cOV-SV-2Mt" id="Stn-vu-IaZ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -149,6 +156,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="6dq-aU-tMP" id="f6n-xs-6Ye"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7lJ-pg-59j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
