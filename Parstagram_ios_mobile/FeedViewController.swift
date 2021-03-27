@@ -14,28 +14,43 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     var posts = [PFObject]()
+    let postRefreshControl = UIRefreshControl()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
+        loadPosts()
+        
+        postRefreshControl.addTarget(self, action: #selector(loadPosts), for: .valueChanged)
+        tableView.refreshControl = postRefreshControl
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 150
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        loadPosts()
+    }
+    
+    @objc func loadPosts() {
         
         let query = PFQuery(className:"Posts")
         query.includeKey("author")
         query.limit = 20
+        query.order(byDescending: "createdAt")
         
         query.findObjectsInBackground{(posts, error) in
             if posts != nil {
                 self.posts = posts!
                 self.tableView.reloadData()
+                self.postRefreshControl.endRefreshing()
             }
         }
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
         
@@ -44,9 +59,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
         let post = posts[indexPath.row]
-        let user = post["author"] as! PFUser
-        cell.usernameLabel.text = user.username
-        cell.captionLabel.text = post["caption"] as! String
+        let user = post["author"] as? PFUser
+        cell.usernameLabel.text = user?.username
+        cell.captionLabel.text = post["caption"] as? String
+        
         let imageFile = post["image"] as! PFFileObject
         let urlString = imageFile.url!
         let url = URL(string: urlString)!
