@@ -8,6 +8,7 @@
 import UIKit
 import AlamofireImage
 import Parse
+import MBProgressHUD
 
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -28,7 +29,10 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         let file = PFFileObject(name: "image.png", data: imageData!)
         
         post["image"] = file
+        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         post.saveInBackground{(success, error) in
+            MBProgressHUD.hide(for: self.view, animated: true)
             if success {
                 self.dismiss(animated: true, completion: nil)
                 print("saved!")
@@ -55,7 +59,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.editedImage] as! UIImage
         let size = CGSize(width: 300, height: 300)
-        let scaledImage = image.af_imageScaled(to: size)
+        let scaledImage = image.af_imageAspectScaled(toFill: size)
         
         imageView.image = scaledImage
         

@@ -8,6 +8,8 @@ target 'Parstagram_ios_mobile' do
   # Pods for Parstagram_ios_mobile
     pod 'Parse'
     pod 'AlamofireImage'
+    pod 'MBProgressHUD'
+    pod 'MessageInputBar'
 
 
   target 'Parstagram_ios_mobileTests' do
